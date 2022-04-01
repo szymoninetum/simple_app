@@ -3,9 +3,10 @@ from dotenv import load_dotenv
 import sqlalchemy as _sql
 import sqlalchemy.ext.declarative as _declarative
 import sqlalchemy.orm as _orm
+import sqlalchemy_utils as _sqlutils
+import database as _database
 
 load_dotenv(dotenv_path=".env")
-
 
 POSTGRES_USER: str = os.getenv("POSTGRES_USER")
 POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
@@ -18,6 +19,10 @@ DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERV
 
 
 engine = _sql.create_engine(DATABASE_URL)
+if not _sqlutils.database_exists(engine.url):
+    _sqlutils.create_database(engine.url)
+
+_database.Base.metadata.create_all(bind=engine)
 
 SessionLocal = _orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

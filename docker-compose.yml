@@ -10,12 +10,42 @@ services:
     container_name: app-postgres
     #Volume mounted for database for the storage
     volumes:
-      - app-data:/var/lib/postgresql/data
+      - app-postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432 # Forward the exposed port 5432 on the container to port 5432 on the host machine
 
     #Environment variable for DB name, user and password
     environment:
-      - POSTGRES_DB=app
+      - POSTGRES_DB=fastapi_database
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=app
+    networks:
+      - app_net
+
+
+#add APP service with environment variables
+  app:
+    image: app:latest
+    build: ./app
+    container_name: app
+
+    #Environment variables for Spring Boot Application.
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=app
+      - POSTGRES_SERVER=app-postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DATABASE=fastapi_database
+    ports:
+      - 0.0.0.0:8000:8000 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    links:
+      - app-postgres
+    networks:
+      - app_net
+    
+
+volumes:
+  app-postgres:
+
+networks:
+  app_net:
