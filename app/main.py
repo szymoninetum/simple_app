@@ -1,3 +1,4 @@
+#from msilib import _add_tables
 from typing import TYPE_CHECKING, List
 import fastapi as _fastapi
 import sqlalchemy.orm as _orm
@@ -9,6 +10,8 @@ if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
 app = _fastapi.FastAPI()
+
+_services._add_tables()
 
 
 @app.post("/doc/{contact_id}/", response_model=_schemas.Contact)

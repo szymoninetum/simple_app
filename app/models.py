@@ -1,7 +1,7 @@
 import datetime as _dt
 import sqlalchemy as _sql
 
-import database as _database
+import databas as _database
 
 
 class Contact(_database.Base):

@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, List
 
-import database as _database
+import databas as _database
 import models as _models
 import schemas as _schemas
 
