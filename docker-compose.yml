@@ -42,15 +42,15 @@ services:
       - app-postgres
     networks:
       - app_net
-    
+
   haproxy:
     image: haproxy:2.5
-    command: haproxy -c -- /etc/haproxy/haproxy.cfg
+    command: haproxy -- /etc/haproxy/haproxy.cfg
     ports:
       - "10080:8000"
       - "10081:8181"
     restart: always
-    volumes: 
+    volumes:
       - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
     networks:
       - app_net
