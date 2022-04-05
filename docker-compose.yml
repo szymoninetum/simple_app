@@ -37,7 +37,7 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DATABASE=fastapi_database
     ports:
-      - 0.0.0.0:8000:8000 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - 8000:8000 # Forward the exposed port 8080 on the container to port 8080 on the host machine
     links:
       - app-postgres
     networks:
@@ -47,8 +47,8 @@ services:
     image: haproxy:2.5
     command: haproxy -- /etc/haproxy/haproxy.cfg
     ports:
-      - "10080:8000"
-      - "10081:8181"
+      - "0.0.0.0:1080:80"
+      - "0.0.0.0:1081:81"
     restart: always
     volumes:
       - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
