@@ -7,7 +7,6 @@ services:
   #PostgreSQL Database for the application
   app-postgres:
     image: "postgres:9.6-alpine"
-    build: ./app
     container_name: app-postgres
     #Volume mounted for database for the storage
     volumes:
