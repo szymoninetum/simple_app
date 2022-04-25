@@ -89,6 +89,8 @@ networks:
     app_nginx:
 
 #----------------------------------------------------------
+# Other solutions for NGINX (do not work)
+
 
   # proxy:
   #   image: nginx:1-alpine
