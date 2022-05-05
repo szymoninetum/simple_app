@@ -1,35 +1,38 @@
 # Docker & k8s tutorial app
 ---
 ---
-## Docker-compose
+# Docker-compose
 
 
 ***
-## k8s
+# k8s
 ***
-Please, notice that 'alias' was used as follows:
-alias k="kubectl"
+Please, notice that for all commands below 'alias' was used as follows:
+<pre><code>alias k="kubectl"</code></pre>
 
 Steps to deploy:
-1. minikube start --driver=docker (you can change driver to VirtualBox, Podman, Hyper-V. Please refer to: https://minikube.sigs.k8s.io/docs/drivers/ for details)
-2. k apply -f deployment.yaml -f service.yaml
+1. <pre><code>minikube start --driver=docker</code></pre> or you can change driver to VirtualBox, Podman, Hyper-V. Please refer to: https://minikube.sigs.k8s.io/docs/drivers/ for more details
+2. <pre><code>k apply -f deployment.yaml -f service.yaml</code></pre>
 * Check whether pods and services were correctly deployed. Use these commands:
-   * k get pods
-   * k get svc
-   * k get deploy <br /><br />
+
+   * <pre><code>k get pods</code></pre>
+   * <pre><code>k get svc</code></pre>
+   * <pre><code>k get deploy</code></pre><br /><br />
 In case there are some errors, please check 'logs' and 'description'. Use these commands:
  
-   * k logs [NAME_POD] <br />
-   * k describe pod [NAME_POD] <br />
-as below:
-![Pods](/images/pods.png)
+   * <pre><code>k logs [NAME_POD]</code></pre> <br />
+   * <pre><code>k describe pod [NAME_POD]</code></pre> <br />
+as below: <br />
+![pods](https://github.com/szymoninetum/simple_app/tree/master/images/pods.png)
+
+
 
 
 3. Open new Terminal Window and use command:
-   * minikube tunnel
+   * <pre><code>minikube tunnel</code></pre>
 
 4. Go back to previous Terminal Window and use command:
-   * minikube service [NAME_SERVICE] (use command k get svc to find service name) <br /><br />
+   * <pre><code>minikube service [NAME_SERVICE]</code></pre> (use command <pre><code>k get svc</code></pre> to find service name) <br /><br />
    Web application should appear in new tab of your browser
 
 <br />
@@ -64,7 +67,7 @@ Here are some most common bugs/issues with potential fixes:
 * https://www.youtube.com/watch?v=s_o8dwzRlu4
 
 <br /><br /><br /><br /><br />
-## Alternative option
+## Alternative option 
 ***
 Please, note that there is one more option to deploy it from Docker-Compose by using **KOMPOSE** option. You need translate Docker Compose file to Kubernetes Resources. Use documentation below:
 * https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/
