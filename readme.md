@@ -29,7 +29,7 @@ In case there are some errors, please check 'logs' and 'description'. Use these 
    * <pre><code>k logs [NAME_POD]</code></pre> <br />
    * <pre><code>k describe pod [NAME_POD]</code></pre>
 as below: <br />
-![pods](https://github.com/szymoninetum/simple_app/tree/master/images/pods.png)
+![pods](/images/pods.PNG)
 
 
 
