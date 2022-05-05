@@ -15,7 +15,6 @@ You can access web application with your browser using address below:
 It's possible to use another ports to access this web application: <code>8080</code>, <code>8081</code> or <code>8085</code>
 <br /><br />
 
-***
 # k8s
 ***
 Please, notice that for all commands below 'alias' was used as follows:
