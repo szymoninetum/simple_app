@@ -1,7 +1,13 @@
 # Docker & k8s tutorial app
----
----
+
 # Docker-compose
+***
+Prerequisites:
+1. **Dockerfile** for app's environment
+2. Defined services in **docker-compose.yml** file
+
+Command below will run entire app:
+<pre><code>docker-compose down && docker-compose up</code></pre>
 
 
 ***
@@ -17,11 +23,11 @@ Steps to deploy:
 
    * <pre><code>k get pods</code></pre>
    * <pre><code>k get svc</code></pre>
-   * <pre><code>k get deploy</code></pre><br /><br />
+   * <pre><code>k get deploy</code></pre><br />
 In case there are some errors, please check 'logs' and 'description'. Use these commands:
  
    * <pre><code>k logs [NAME_POD]</code></pre> <br />
-   * <pre><code>k describe pod [NAME_POD]</code></pre> <br />
+   * <pre><code>k describe pod [NAME_POD]</code></pre>
 as below: <br />
 ![pods](https://github.com/szymoninetum/simple_app/tree/master/images/pods.png)
 
