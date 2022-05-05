@@ -1,4 +1,5 @@
 # Docker & k8s tutorial app
+Build easy web application with using Docker, Docker-Compose, k8s and Minikube. Application was programmed in Python with FastApi and SQLalchemy.
 
 # Docker-compose
 ***
@@ -9,6 +10,10 @@ Prerequisites:
 Command below will run entire app:
 <pre><code>docker-compose down && docker-compose up</code></pre>
 
+You can access web application with your browser using address below:
+<pre><code>localhost:8000/docs</code></pre>
+It's possible to use another ports to access this web application: <code>8080</code>, <code>8081</code> or <code>8085</code>
+<br /><br />
 
 ***
 # k8s
