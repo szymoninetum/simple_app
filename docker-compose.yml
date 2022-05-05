@@ -20,8 +20,8 @@ services:
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=app
     networks:
-      - app_net
-      - app_nginx
+      - app.net
+      - app.nginx
 
 
 #add APP service with environment variables
@@ -42,8 +42,8 @@ services:
     links:
       - app-postgres
     networks:
-      - app_net
-      - app_nginx
+      - app.net
+      - app.nginx
       
 
   haproxy:
@@ -56,7 +56,9 @@ services:
     volumes:
       - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
     networks:
-      - app_net
+      - app.net
+    labels:
+      kompose.service.type: LoadBalancer
 
 
 
@@ -74,19 +76,21 @@ services:
     volumes:
       - ${PWD}/nginx.conf:/etc/nginx/nginx.conf
     networks:
-      - app_nginx
+      - app.nginx
     # environment:
     #   - "82"
     depends_on:
       - app
+    labels:
+      kompose.service.type: LoadBalancer
 
 
 volumes:
     app-postgres:
 
 networks:
-    app_net:
-    app_nginx:
+    app.net:
+    app.nginx:
 
 #----------------------------------------------------------
 # Other solutions for NGINX (do not work)
