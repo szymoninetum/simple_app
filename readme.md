@@ -38,7 +38,7 @@ as below: <br />
    * <pre><code>minikube tunnel</code></pre>
 
 4. Go back to previous Terminal Window and use command:
-   * <pre><code>minikube service [NAME_SERVICE]</code></pre> (use command <pre><code>k get svc</code></pre> to find service name) <br /><br />
+   * <pre><code>minikube service [NAME_SERVICE]</code></pre> (use command <code>k get svc</code> to find service name) <br /><br />
    Web application should appear in new tab of your browser
 
 <br />
