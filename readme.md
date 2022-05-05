@@ -3,9 +3,11 @@ Build easy web application with using Docker, Docker-Compose, k8s and Minikube. 
 
 # Docker-compose
 ***
-Prerequisites:
+## Prerequisites: ##
 1. **Dockerfile** for app's environment
-2. Defined services in **docker-compose.yml** file
+2. **Dockerimage** which is built with this command: <pre><code>docker build -t szymanel/app .</code></pre>
+Use directory with your Dockerfile 
+3. Defined services in **docker-compose.yml** file
 
 Command below will run entire app:
 <pre><code>docker-compose down && docker-compose up</code></pre>
@@ -33,7 +35,7 @@ In case there are some errors, please check 'logs' and 'description'. Use these 
    * <pre><code>k logs [NAME_POD]</code></pre> <br />
    * <pre><code>k describe pod [NAME_POD]</code></pre>
 as below: <br />
-![pods](/images/pods.PNG)
+![pods](images/pods.PNG)
 
 
 
