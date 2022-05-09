@@ -65,9 +65,10 @@ spec:
       labels:
         app: postgres
     data:
-      POSTGRES_DB: postgresdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: fastapi_database
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+
 ---
     apiVersion: v1
     kind: Service
