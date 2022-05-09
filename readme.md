@@ -5,12 +5,8 @@ Build easy web application with using Docker, Docker-Compose, k8s and Minikube. 
 ***
 ## Prerequisites: ##
 1. **Dockerfile** for app's environment
-<<<<<<< HEAD
-2. **Dockerimage** which is built with this command: <pre><code>docker build \app </code></pre>
-=======
 2. **Dockerimage** which is built with this command: <pre><code>docker build -t szymanel/app .</code></pre>
 Use directory with your Dockerfile 
->>>>>>> 56b519984b4c29cb18802414f08012d9f5665065
 3. Defined services in **docker-compose.yml** file
 
 Command below will run entire app:
@@ -24,7 +20,7 @@ It's possible to use another ports to access this web application: <code>8080</c
 # k8s
 ***
 Please, notice that for all commands below 'alias' was used as follows:
-<pre><code>alias k="kubectl"</code></pre>
+**<pre><code>alias k="kubectl"</code></pre>**
 
 Steps to deploy:
 1. <pre><code>minikube start --driver=docker</code></pre> or you can change driver to VirtualBox, Podman, Hyper-V. Please refer to: https://minikube.sigs.k8s.io/docs/drivers/ for more details
