@@ -3,7 +3,6 @@ venv
 **/*.env
 app-postgres/
 webapp.pem
-main.tf
 **/*.lock.hcl
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
