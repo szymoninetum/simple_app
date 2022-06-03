@@ -16,7 +16,11 @@ provider "aws" {
 resource "aws_network_interface" "foo" {
   subnet_id   = aws_subnet.public-subnet-1.id
   private_ips = ["10.0.0.100"]
+  security_groups = [aws_security_group.main.id]
 
+  attachment {
+    instance = 
+  }
   tags = {
     Name = "primary_network_interface"
   }
@@ -35,20 +39,48 @@ resource "aws_instance" "app_server" {
   tags = {
     Name = "webapp"
  }
-  # depends_on = [aws_vpc.vpc]
+  # depends_on = [aws_security_group.main]
 }
 
 
-#Configure Security Groups
+# #Configure Security Groups
 resource "aws_security_group" "main" {
   vpc_id = aws_vpc.vpc.id
 
   ingress {
-   protocol         = "-1"
-   from_port        = 0
-   to_port          = 0
-   cidr_blocks      = ["0.0.0.0/0"]
-   ipv6_cidr_blocks = ["::/0"]
+    description      = "SSH Access"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    protocol         = "tcp"
+    from_port        = 1080
+    to_port          = 1080
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol         = "tcp"
+    from_port        = 1081
+    to_port          = 1081
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol         = "tcp"
+    from_port        = 1085
+    to_port          = 1085
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol         = "tcp"
+    from_port        = 8000
+    to_port          = 8000
+    cidr_blocks      = ["0.0.0.0/0"]
   }
 
   egress {
@@ -56,7 +88,7 @@ resource "aws_security_group" "main" {
    from_port        = 0
    to_port          = 0
    cidr_blocks      = ["0.0.0.0/0"]
-   ipv6_cidr_blocks = ["::/0"]
+  #  ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
@@ -65,93 +97,93 @@ resource "aws_security_group" "main" {
 }
 
 #ssh sg configure
-resource "aws_security_group" "ssh-security-group" {
-  name        = "SSH Security Group"
-  description = "Enable SSH access on Port 22"
-  vpc_id      = aws_vpc.vpc.id
+# resource "aws_security_group" "ssh-security-group" {
+#   name        = "SSH Security Group"
+#   description = "Enable SSH access on Port 22"
+#   vpc_id      = aws_vpc.vpc.id
 
-  ingress {
-    description      = "SSH Access"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     description      = "SSH Access"
+#     from_port        = 22
+#     to_port          = 22
+#     protocol         = "tcp"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-    egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   egress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-  tags   = {
-    Name = "SSH Security Group"
-  }
-}
+#   tags   = {
+#     Name = "SSH Security Group"
+#   }
+# }
 
 # Create Security Group for the Web Server
 # Create Security Group for the Application Load Balancer
 # terraform aws create security group
-resource "aws_security_group" "alb-security-group" {
-  name        = "ALB Security Group"
-  description = "Enable HTTP/HTTPS access on Port 80/443"
-  vpc_id      = aws_vpc.vpc.id
+# resource "aws_security_group" "alb-security-group" {
+#   name        = "ALB Security Group"
+#   description = "Enable HTTP/HTTPS access on Port 80/443"
+#   vpc_id      = aws_vpc.vpc.id
 
-  ingress {
-    description      = "HTTP Access"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     description      = "HTTP Access"
+#     from_port        = 80
+#     to_port          = 80
+#     protocol         = "tcp"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   egress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-  tags   = {
-    Name = "ALB Security Group"
-  }
-}
+#   tags   = {
+#     Name = "ALB Security Group"
+#   }
+# }
 
-# Create Security Group for the Web Server
-# terraform aws create security group
-resource "aws_security_group" "webserver-security-group" {
-  name        = "Web Server Security Group"
-  description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SSH access on Port 22 via SSH SG"
-  vpc_id      = aws_vpc.vpc.id
+# # Create Security Group for the Web Server
+# # terraform aws create security group
+# resource "aws_security_group" "webserver-security-group" {
+#   name        = "Web Server Security Group"
+#   description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SSH access on Port 22 via SSH SG"
+#   vpc_id      = aws_vpc.vpc.id
 
-  ingress {
-    description      = "HTTP Access"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    security_groups  = ["${aws_security_group.alb-security-group.id}"]
-  }
+#   ingress {
+#     description      = "HTTP Access"
+#     from_port        = 80
+#     to_port          = 80
+#     protocol         = "tcp"
+#     security_groups  = ["${aws_security_group.alb-security-group.id}"]
+#   }
 
-  ingress {
-    description      = "SSH Access"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    security_groups  = ["${aws_security_group.ssh-security-group.id}"]
-  }
+#   ingress {
+#     description      = "SSH Access"
+#     from_port        = 22
+#     to_port          = 22
+#     protocol         = "tcp"
+#     security_groups  = ["${aws_security_group.ssh-security-group.id}"]
+#   }
 
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
+#   egress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = "-1"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
 
-  tags   = {
-    Name = "Web Server Security Group"
-  }
-}
+#   tags   = {
+#     Name = "Web Server Security Group"
+#   }
+# }
 
  # End of the Security Groups
 
