@@ -18,9 +18,6 @@ resource "aws_network_interface" "foo" {
   private_ips = ["10.0.0.100"]
   security_groups = [aws_security_group.main.id]
 
-  attachment {
-    instance = 
-  }
   tags = {
     Name = "primary_network_interface"
   }
@@ -30,7 +27,7 @@ resource "aws_network_interface" "foo" {
 resource "aws_instance" "app_server" {
   ami           = "ami-0022f774911c1d690"    
   instance_type = var.instance_type
-  key_name = "webapp"
+  key_name = "app"
   network_interface {
     network_interface_id = aws_network_interface.foo.id
     device_index         = 0
