@@ -1,0 +1,22 @@
+---
+ - hosts: localhost
+   tasks:
+   - name: Clone A Github Repository With Ansible
+     git:
+       repo: https://github.com/szymoninetum/simple_app.git
+       dest: ../ansible_app
+       clone: yes
+       update: yes
+# ---
+# - name: Clone a repo with separate git directory
+#   hosts: all
+#   become: true
+#   tasks:
+#     # - name: ensure git pkg installed
+#     #   ansible.builtin.ubuntu:
+#     #      name: git
+#     #      state: present
+#     - name: clone
+#       ansible.builtin.git:
+#          repo: https://github.com/szymoninetum/simple_app.git
+#          dest: /mnt/Code/FastApi/ansible

@@ -48,6 +48,14 @@ as below: <br />
    Web application should appear in new tab of your browser
 
 <br />
+
+# Terraform
+***
+Use command:
+**<pre><code>terraform init</code></pre>**
+**<pre><code>terraform plan</code></pre>**
+**<pre><code>terraform apply</code></pre>**
+**<pre><code>terraform destroy</code></pre>**
 Please, refer to documentation: <br /> <br />
 
 ### Docker & Docker Compose documentation <br />
