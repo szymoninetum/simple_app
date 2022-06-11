@@ -1,12 +1,53 @@
 ---
- - hosts: localhost
+ - hosts: all
+   name: play1
+   become: true
+   become_method: sudo
    tasks:
+   - name: Check for Python
+     raw: test -e /usr/bin/python
+     changed_when: false
+     failed_when: false
+     register: check_python
+   - name: Install Python
+     raw: apt -y update && apt install -y python-minimal
+     when: check_python.rc != 0
+  #  - name: Run apt upgrade
+  #    apt:
+  #       upgrade: "yes"
+  #       update_cache: yes
+  #       cache_valid_time: 432000
+   - name: install git
+     ansible.builtin.shell: sudo yum install git -y
+     become: true 
+  #  - name: Update repository
+  #    apt_repository:
+  #      repo: 'ppa:git-core/ppa'
+  #      state: present
+  #  - name: Install git
+  #    apt:
+  #      name: git
+  #      state: present
+  #      update_cache: yes
    - name: Clone A Github Repository With Ansible
      git:
        repo: https://github.com/szymoninetum/simple_app.git
-       dest: ../ansible_app
+       dest: ansible_app
        clone: yes
        update: yes
+  #  - name: new Directory
+  #    ansible.builtin.shell: mkdir ansible
+  #    become: true
+  #  - name: Directory
+  #    ansible.builtin.shell: cd /ansible
+  #    become: true
+  #  - name: Git clone
+  #    ansible.builtin.shell: git clone https://github.com/szymoninetum/simple_app.git
+  #    become: true
+
+  #  - name: Run container
+  #   #  become: True
+  #    ansible.builtin.shell: "docker-compose down && docker-compose up"
 # ---
 # - name: Clone a repo with separate git directory
 #   hosts: all
