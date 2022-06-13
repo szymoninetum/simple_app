@@ -12,11 +12,7 @@
    - name: Install Python
      raw: apt -y update && apt install -y python-minimal
      when: check_python.rc != 0
-  #  - name: Run apt upgrade
-  #    apt:
-  #       upgrade: "yes"
-  #       update_cache: yes
-  #       cache_valid_time: 432000
+
    - name: install git
      ansible.builtin.shell: sudo yum install git -y
      become: true 
@@ -35,29 +31,36 @@
        dest: ansible_app
        clone: yes
        update: yes
-  #  - name: new Directory
-  #    ansible.builtin.shell: mkdir ansible
-  #    become: true
-  #  - name: Directory
-  #    ansible.builtin.shell: cd /ansible
-  #    become: true
-  #  - name: Git clone
-  #    ansible.builtin.shell: git clone https://github.com/szymoninetum/simple_app.git
-  #    become: true
 
-  #  - name: Run container
-  #   #  become: True
-  #    ansible.builtin.shell: "docker-compose down && docker-compose up"
-# ---
-# - name: Clone a repo with separate git directory
-#   hosts: all
-#   become: true
-#   tasks:
-#     # - name: ensure git pkg installed
-#     #   ansible.builtin.ubuntu:
-#     #      name: git
-#     #      state: present
-#     - name: clone
-#       ansible.builtin.git:
-#          repo: https://github.com/szymoninetum/simple_app.git
-#          dest: /mnt/Code/FastApi/ansible
+   - name: Docker install
+     ansible.builtin.shell: sudo yum install -y docker
+     become: true
+   - name: service docker start
+     ansible.builtin.shell: sudo service docker start
+     become: true
+   - name: usermod
+     ansible.builtin.shell: sudo usermod -a -G docker ec2-user
+     become: true
+  #  - name: build
+  #    ansible.builtin.shell: Docker version 17.09.1-ce, build
+  #    become: true
+   - name: Docker-compose install
+     ansible.builtin.shell: curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+     become: true
+   - name: chmod
+     ansible.builtin.shell: chmod +x /usr/local/bin/docker-compose
+     become: true
+
+   - name: Build image
+     shell: echo "PATH=$PATH:/tmp/app" > docker build -t szymanel/app .
+
+   - name: d-c
+     copy:
+       src: simple_app/
+       dest: tmp/
+       remote_src: yes
+   - name: test
+     community.general.docker_compose:
+       project_src: tmp/
+       state: present
+  
