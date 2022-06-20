@@ -23,7 +23,7 @@ resource "aws_network_interface" "foo" {
   }
 }
 
-#EC2 instance
+#Instance with Ubuntu 22.04 LTS (change AMI to specify system: Ubuntu, Amazon Linux etc.)
 resource "aws_instance" "app_server" {
   ami           = "ami-0022f774911c1d690"    
   instance_type = var.instance_type

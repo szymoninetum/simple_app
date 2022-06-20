@@ -58,6 +58,21 @@ Use command:
 **<pre><code>terraform destroy</code></pre>**
 Please, refer to documentation: <br /> <br />
 
+
+# Ansible
+***
+Change 'hosts' file as follows:
+**<pre><code>sudo nano /etc/ansible/hosts</code></pre>**
+[dev]
+IPv4 of your ec2 AWS instance
+
+[dev:vars]
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/mnt/Code/FastApi/app.pem 
+
+
+Please, note that if you're using Ubuntu image, you need change in hosts file the following<pre><code>ansible_user=ubuntu</code></pre>
+
 ### Docker & Docker Compose documentation <br />
 https://docs.docker.com/compose/ <br />
 
