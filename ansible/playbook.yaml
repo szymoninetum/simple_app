@@ -10,9 +10,9 @@
      failed_when: false
      register: check_python
 
-   - name: Install Python
-     raw: apt update && apt install python3-minimal
-     when: check_python.rc != 0
+  #  - name: Install Python
+  #    raw: apt update && apt install python3-minimal
+  #    when: check_python.rc != 0
 
    - name: AWSCLI
      ansible.builtin.shell: python3 -m pip install awscli
