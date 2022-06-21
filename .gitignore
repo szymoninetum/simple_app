@@ -16,3 +16,4 @@ newkey.pub
 .gitignore
 **/*.pub
 **/*.pem
+testkey.pub
