@@ -32,6 +32,11 @@
        dest: ansible_app
        clone: yes
        update: yes
+
+   - name: Install Docker SDK for Python
+     pip:
+       name: "docker<5" 
+     become: true
        
    - name: Docker install
      ansible.builtin.shell: sudo yum install -y docker
@@ -44,10 +49,17 @@
      become: true
   #  - name: build
   #    ansible.builtin.shell: Docker version 17.09.1-ce, build
-    #  become: true
+  #    become: true
    - name: Docker-compose install
      ansible.builtin.shell: curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
      become: true
+  #  - name: install python docker packages
+  #    pip:
+  #     name:
+  #      - docker
+  #      - docker-compose
+  #     executable: pip3
+
    - name: chmod
      ansible.builtin.shell: chmod +x /usr/local/bin/docker-compose
      become: true
@@ -64,12 +76,12 @@
      - docker-compose.yaml
    - name: deploy Docker Compose stack
      community.docker.docker_compose:
-       project_src: /tmp/app
+       project_src: simple_app/
        files:
        - docker-compose.yml
      become: true
      vars:
-       ansible_python_interpreter: /bin/python3.7m
+       ansible_python_interpreter: /bin/python3
 
   #    docker_compose:
   #      project_name: project

@@ -5,7 +5,7 @@ Build easy web application with using Docker, Docker-Compose, k8s and Minikube. 
 ***
 ## Prerequisites: ##
 1. **Dockerfile** for app's environment
-2. **Dockerimage** which is built with this command: <pre><code>docker build -t szymanel/app .</code></pre>
+2. **Dockerimage** which is built with this command:<pre><code>cd app</code></pre> <pre><code>docker build -t szymanel/app .</code></pre>
 Use directory with your Dockerfile 
 3. Defined services in **docker-compose.yml** file
 
@@ -64,7 +64,7 @@ Please, refer to documentation: <br /> <br />
 Change 'hosts' file as follows:
 **<pre><code>sudo nano /etc/ansible/hosts</code></pre>**
 [dev]
-IPv4 of your ec2 AWS instance
+IPv4 of your AWS instance
 
 [dev:vars]
 ansible_user=ec2-user
