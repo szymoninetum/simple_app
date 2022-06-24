@@ -32,6 +32,7 @@
        dest: ansible_app
        clone: yes
        update: yes
+     become: true
 
    - name: Install Docker SDK for Python
      pip:
@@ -74,11 +75,23 @@
        remote_src: yes
      loop:
      - docker-compose.yaml
-   - name: deploy Docker Compose stack
+     
+   - name: deploy Docker Compose down
      community.docker.docker_compose:
        project_src: simple_app/
        files:
        - docker-compose.yml
+       state: absent
+     become: true  
+     vars:
+       ansible_python_interpreter: /bin/python3
+
+   - name: deploy Docker Compose Up
+     community.docker.docker_compose:
+       project_src: simple_app/
+       files:
+       - docker-compose.yml
+       state: present
      become: true
      vars:
        ansible_python_interpreter: /bin/python3
