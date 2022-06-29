@@ -17,3 +17,6 @@ newkey.pub
 **/*.pub
 **/*.pem
 testkey.pub
+tf-cloud-init
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/4.20.1/linux_amd64/terraform-provider-aws_v4.20.1_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/template/2.2.0/linux_amd64/terraform-provider-template_v2.2.0_x4

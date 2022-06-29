@@ -1,3 +1,7 @@
+data "template_file" "user_data" {
+  template = file("scripts/add-ssh-web-app.yaml")
+}
+
 terraform {
   required_providers {
     aws = {
@@ -25,9 +29,10 @@ resource "aws_network_interface" "foo" {
 
 #Instance with Ubuntu 22.04 LTS (change AMI to specify system: Ubuntu, Amazon Linux etc.)
 resource "aws_instance" "app_server" {
-  ami           = "ami-0022f774911c1d690"    
+  ami           = "ami-052efd3df9dad4825"    #ubuntu server
   instance_type = var.instance_type
   key_name = "app"
+  user_data = data.template_file.user_data.rendered
   network_interface {
     network_interface_id = aws_network_interface.foo.id
     device_index         = 0
