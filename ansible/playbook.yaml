@@ -1,7 +1,7 @@
 ---
 - hosts: all
   name: play1
-    #  become: true
+  become: true
     #  become_method: sudo
   tasks:
     - name: Check for Python
@@ -14,18 +14,17 @@
   #    raw: apt update && apt install python3-minimal
   #    when: check_python.rc != 0
 
-<<<<<<< HEAD
-    - name: AWSCLI
-      ansible.builtin.shell: python3 -m pip install awscli
-      become: true
+    # - name: AWSCLI
+    #   ansible.builtin.shell: python3 -m pip install awscli
+    #   become: true
 
     #  - name: python-docker
     #    ansible.builtin.shell: sudo yum install python-pip
     #    become: true
 
-    - name: install git
-      ansible.builtin.shell: sudo yum install git -y
-      become: true 
+    # - name: install git
+    #   ansible.builtin.shell: sudo yum install git -y
+    #   become: true 
 
     - name: Clone A Github Repository With Ansible
       git:
@@ -35,26 +34,58 @@
         update: yes
       become: true
 
-    - name: Install Docker SDK for Python
-      pip:
-        name: "docker<5" 
-      become: true
-        
-    - name: Docker install
-      ansible.builtin.shell: sudo yum install -y docker
-      become: true
-    - name: service docker start
-      ansible.builtin.shell: sudo service docker start
-      become: true
-    # - name: usermod
+    # - name: Install Docker SDK for Python
+    #   pip:
+    #     name: "docker<5" 
+    #   become: true
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    # - name: Install Docker Module for Python
+    #   pip:
+    #     name: docker
+
+    # - name: usermod 
     #   ansible.builtin.shell: sudo usermod -a -G docker ec2-user
     #   become: true
     #  - name: build
     #    ansible.builtin.shell: Docker version 17.09.1-ce, build
     #    become: true
-    - name: Docker-compose install
-      ansible.builtin.shell: curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-      become: true
+    # - name: Docker-compose install
+    #   ansible.builtin.shell: curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    #   become: true
     #  - name: install python docker packages
     #    pip:
     #     name:
@@ -62,9 +93,9 @@
     #      - docker-compose
     #     executable: pip3
 
-    - name: chmod
-      ansible.builtin.shell: chmod +x /usr/local/bin/docker-compose
-      become: true
+    # - name: chmod
+    #   ansible.builtin.shell: chmod +x /usr/local/bin/docker-compose
+    #   become: true
 
     - name: Build image
       shell: echo "PATH=$PATH:/tmp/app" > docker build -t szymanel/app .
@@ -74,17 +105,17 @@
       pip:
         name: docker-compose
 
-    - name: copy docker-compose.yml
-      copy:
-        src: ansible_app/
-        dest: /tmp/app
-        remote_src: yes
-      loop:
-      - docker-compose.yaml
+    # - name: copy docker-compose.yml
+    #   copy:
+    #     src: ansible_app/
+    #     dest: /tmp/app
+    #     remote_src: yes
+    #   loop:
+    #   - docker-compose.yaml
       
     - name: deploy Docker Compose down
-      community.docker.docker_compose:
-        project_src: simple_app/
+      docker_compose:
+        project_src: ansible_app/
         files:
         - docker-compose.yml
         state: absent
@@ -93,8 +124,8 @@
         ansible_python_interpreter: /bin/python3
 
     - name: deploy Docker Compose Up
-      community.docker.docker_compose:
-        project_src: simple_app/
+      docker_compose:
+        project_src: ansible_app/
         files:
         - docker-compose.yml
         state: present
@@ -131,119 +162,4 @@
     #    community.general.docker_compose:
     #      project_src: tmp/
     #      state: present
-    
-=======
-   - name: AWSCLI
-     ansible.builtin.shell: python3 -m pip install awscli
-     become: true
-
-  #  - name: python-docker
-  #    ansible.builtin.shell: sudo yum install python-pip
-  #    become: true
-
-   - name: install git
-     ansible.builtin.shell: sudo yum install git -y
-     become: true 
-
-   - name: Clone A Github Repository With Ansible
-     git:
-       repo: https://github.com/szymoninetum/simple_app.git
-       dest: ansible_app
-       clone: yes
-       update: yes
-     become: true
-
-   - name: Install Docker SDK for Python
-     pip:
-       name: "docker<5" 
-     become: true
-       
-   - name: Docker install
-     ansible.builtin.shell: sudo yum install -y docker
-     become: true
-   - name: service docker start
-     ansible.builtin.shell: sudo service docker start
-     become: true
-   - name: usermod
-     ansible.builtin.shell: sudo usermod -a -G docker ec2-user
-     become: true
-  #  - name: build
-  #    ansible.builtin.shell: Docker version 17.09.1-ce, build
-  #    become: true
-   - name: Docker-compose install
-     ansible.builtin.shell: curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-     become: true
-  #  - name: install python docker packages
-  #    pip:
-  #     name:
-  #      - docker
-  #      - docker-compose
-  #     executable: pip3
-
-   - name: chmod
-     ansible.builtin.shell: chmod +x /usr/local/bin/docker-compose
-     become: true
-
-   - name: Build image
-     shell: echo "PATH=$PATH:/tmp/app" > docker build -t szymanel/app .
-
-   - name: copy docker-compose.yml
-     copy:
-       src: ansible_app/
-       dest: /tmp/app
-       remote_src: yes
-     loop:
-     - docker-compose.yaml
-     
-   - name: deploy Docker Compose down
-     community.docker.docker_compose:
-       project_src: simple_app/
-       files:
-       - docker-compose.yml
-       state: absent
-     become: true  
-     vars:
-       ansible_python_interpreter: /bin/python3
-
-   - name: deploy Docker Compose Up
-     community.docker.docker_compose:
-       project_src: simple_app/
-       files:
-       - docker-compose.yml
-       state: present
-     become: true
-     vars:
-       ansible_python_interpreter: /bin/python3
-
-  #    docker_compose:
-  #      project_name: project
-  #      definition:
-  #       version: "latest"
-  #       services:
-  #         app:
-  #           build: "/tmp/app/"
-  #  - name: python-docker
-  #    pip: 
-  #       pip install docker
-  #    become: true
-
-
-
-#building image
-  #  - name: docker image
-  #    copy:
-  #      src: ansible_app/simple_app
-  #      dest: tmp/
-  #      remote_src: yes
-
-  #  - name: DC
-  #    shell: echo "PATH=$PATH:/tmp/app" > docker-compose down && docker-compose up
-
-#docker-compose
-  #  - name: test
-  #    community.general.docker_compose:
-  #      project_src: tmp/
-  #      state: present
   
->>>>>>> cf42ff650d7ff0aee64870381e8956d621cda9a4
-

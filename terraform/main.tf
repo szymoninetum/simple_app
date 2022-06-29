@@ -39,7 +39,7 @@ resource "aws_instance" "app_server" {
   }
 
   tags = {
-    Name = "webapp"
+    Name = "new_webapp"
  }
   # depends_on = [aws_security_group.main]
 }
@@ -201,7 +201,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames    = true
 
   tags      = {
-    Name    = "VPC for webapp"
+    Name    = "VPC for new_webapp"
   }
 }
 
