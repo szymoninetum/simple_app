@@ -27,13 +27,19 @@
     #   become: true
 
 
-    # - name: Clone A Github Repository With Ansible
-    #   git:
-    #     repo: https://github.com/szymoninetum/simple_app.git
-    #     dest: ansible_app
-    #     clone: yes
-    #     update: yes
-    #   become: true
+    - name: Clone A Github Repository With Ansible
+      git:
+        repo: https://github.com/szymoninetum/simple_app.git
+        dest: ansible_app
+        clone: yes
+        update: yes
+      become: true
+
+    #Change line with nginx volume in docker-compose.yml file 
+    - name: change Docker-Compose file
+      shell:
+         copy /ansible_app/docker-compose_host_machine/docker-composey.yml /ansible_app
+
 
     # - name: Install Docker SDK for Python
     #   pip:
