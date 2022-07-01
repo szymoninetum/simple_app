@@ -1,0 +1,124 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3'
+
+#Define services
+services:
+
+  #PostgreSQL Database for the application
+  app-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: app-postgres
+    #Volume mounted for database for the storage
+    volumes:
+      - ${PWD}/app-postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 # Forward the exposed port 5432 on the container to port 5432 on the host machine
+
+    #Environment variable for DB name, user and password
+    environment:
+      - POSTGRES_DB=fastapi_database
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=app
+    networks:
+      - app.net
+      - app.nginx
+
+
+#add APP service with environment variables
+  app:
+    image: app:latest
+    build: ./app
+    container_name: app
+
+    #Environment variables for Spring Boot Application.
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=app
+      - POSTGRES_SERVER=app-postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DATABASE=fastapi_database
+    ports:
+      - 8000:8000 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    links:
+      - app-postgres
+    networks:
+      - app.net
+      - app.nginx
+      
+
+  haproxy:
+    image: haproxy:2.5
+    command: haproxy -- /etc/haproxy/haproxy.cfg
+    ports:
+      - "0.0.0.0:1080:80"
+      - "0.0.0.0:1081:81"
+    restart: always
+    volumes:
+      - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
+    networks:
+      - app.net
+    labels:
+      kompose.service.type: LoadBalancer
+
+
+
+
+  nginx:
+    image: nginx:1.20
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    #command: nginx /etc/nginx/nginx.conf
+    ports:
+      - "0.0.0.0:1085:85"
+    restart: always
+    volumes:
+      - ${PWD}/nginx.conf:/etc/nginx/conf.d
+    networks:
+      - app.nginx
+    # environment:
+    #   - "82"
+    depends_on:
+      - app
+    labels:
+      kompose.service.type: LoadBalancer
+
+
+volumes:
+    app-postgres:
+
+networks:
+    app.net:
+    app.nginx:
+
+#----------------------------------------------------------
+# Other solutions for NGINX (do not work)
+
+
+  # proxy:
+  #   image: nginx:1-alpine
+  #   volumes:
+  #     - ./nginx_configs/:/etc/nginx/conf.d/:ro
+  #     - ./proxy/:/usr/share/nginx/html/:ro
+  #   ports:
+  #     - "0.0.0.0:1082:82"
+  #     - "0.0.0.0:1083:83"
+  #   networks:
+  #     - app_net
+  # service_a:
+  #   image: nginx:1-alpine
+  #   hostname: service_a
+  #   volumes:
+  #     - ./service_a/:/usr/share/nginx/html/:ro
+  #   networks:
+  #     - app_net
+  # service_b:
+  #   image: nginx:1-alpine
+  #   hostname: service_b
+  #   volumes:
+  #     - ./service_b/:/usr/share/nginx/html/:ro
+  #   networks:
+  #     - app_net
+
+#---------------------------------------

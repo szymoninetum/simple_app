@@ -26,6 +26,7 @@
     #   ansible.builtin.shell: sudo yum install git -y
     #   become: true
 
+
     # - name: Clone A Github Repository With Ansible
     #   git:
     #     repo: https://github.com/szymoninetum/simple_app.git
