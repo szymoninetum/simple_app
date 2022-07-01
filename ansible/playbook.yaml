@@ -38,7 +38,7 @@
     #Change line with nginx volume in docker-compose.yml file 
     - name: change Docker-Compose file
       shell:
-         copy ansible_app/docker-compose_host_machine/docker-composey.yml ansible_app
+        cp ansible_app/docker-compose_host_machine/docker-compose.yml ansible_app/
 
 
     # - name: Install Docker SDK for Python
