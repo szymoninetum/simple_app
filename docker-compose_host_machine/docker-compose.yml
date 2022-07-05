@@ -48,13 +48,13 @@ services:
 
   haproxy:
     image: haproxy:2.5
-    command: haproxy -- ~/haproxy.cfg
+    command: haproxy -- /etc/haproxy/haproxy.cfg
     ports:
       - "0.0.0.0:1080:80"
       - "0.0.0.0:1081:81"
     restart: always
     volumes:
-      - ${PWD}/haproxy.cfg:~/haproxy.cfg
+      - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
     networks:
       - app.net
     labels:
