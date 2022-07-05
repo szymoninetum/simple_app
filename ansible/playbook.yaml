@@ -29,7 +29,7 @@
     - name: Clone A Github Repository With Ansible
       git:
         repo: https://github.com/szymoninetum/simple_app.git
-        dest: ansible_app
+        dest: FastApi
         clone: yes
         update: yes
         force: yes
@@ -38,7 +38,7 @@
     #Change line with nginx volume in docker-compose.yml file 
     - name: change Docker-Compose file
       shell:
-        cp ansible_app/docker-compose_host_machine/docker-compose.yml ansible_app/
+        cp FastApi/docker-compose_host_machine/docker-compose.yml FastApi/
 
 
     # - name: Install Docker SDK for Python
@@ -127,7 +127,7 @@
 
     - name: deploy Docker Compose down
       docker_compose:
-        project_src: ansible_app/
+        project_src: FastApi/
         files:
         - docker-compose.yml
         state: absent
@@ -137,7 +137,7 @@
 
     - name: deploy Docker Compose Up
       docker_compose:
-        project_src: ansible_app/
+        project_src: FastApi/
         files:
         - docker-compose.yml
         state: present
