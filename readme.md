@@ -3,6 +3,8 @@ Build easy web application with using Docker, Docker-Compose, k8s and Minikube. 
 
 # Docker-compose
 ***
+Please remove auto-forwarding ports as below:
+![ports](images/ports.PNG)
 ## Prerequisites: ##
 1. **Dockerfile** for app's environment
 2. **Dockerimage** which is built with this command:<pre><code>cd app</code></pre> <pre><code>docker build -t szymanel/app .</code></pre>

@@ -1,17 +1,17 @@
 #cloud-config
 repo_update: true
 ntp:
-  enabled: true
-  ntp_client: chrony
+enabled: true
+ntp_client: chrony
 packages:
-    - python3
+  - python3
 user: szymon
 users:
   - name: szymon
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: root
     ssh_authorized_keys:
-      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB>
+    - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB>
 
 
 #1st line 'cloud-config' is necessary
