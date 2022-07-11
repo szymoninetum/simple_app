@@ -50,8 +50,8 @@ services:
     image: haproxy:2.5
     command: haproxy -- /etc/haproxy/haproxy.cfg
     ports:
-      - "0.0.0.0:1089:80"
-      - "0.0.0.0:1081:81"
+      - "0.0.0.0:1100:80"
+      - "0.0.0.0:1090:81"
     restart: always
     volumes:
       - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
