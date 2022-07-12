@@ -54,7 +54,7 @@ services:
       - "0.0.0.0:1090:81"
     restart: always
     volumes:
-      - ${PWD}/haproxy.cfg:/etc/haproxy/haproxy.cfg
+      - ./haproxy.cfg:/etc/haproxy/haproxy.cfg
     networks:
       - app.net
     labels:
@@ -74,7 +74,7 @@ services:
       - "0.0.0.0:1085:85"
     restart: always
     volumes:
-      - ${PWD}/nginx.conf:/etc/nginx/conf.d
+      - ./nginx.conf:/etc/nginx/conf.d
     networks:
       - app.nginx
     # environment:
