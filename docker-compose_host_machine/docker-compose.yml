@@ -71,7 +71,7 @@ services:
       dockerfile: Dockerfile.nginx
     #command: nginx /etc/nginx/nginx.conf
     ports:
-      - "0.0.0.0:1085:85"
+      - "0.0.0.0:1085:80"
     restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
