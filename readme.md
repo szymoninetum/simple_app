@@ -1,4 +1,4 @@
-# Docker & k8s tutorial app
+# Docker & k8s tutorial app & Terraform & Ansible & AWS
 Build easy web application with using Docker, Docker-Compose, k8s and Minikube. Application was programmed in Python with FastApi and SQLalchemy.
 
 # Docker-compose
@@ -26,7 +26,7 @@ Please, notice that for all commands below 'alias' was used as follows:
 
 Steps to deploy:
 1. <pre><code>minikube start --driver=docker</code></pre> or you can change driver to VirtualBox, Podman, Hyper-V. Please refer to: https://minikube.sigs.k8s.io/docs/drivers/ for more details
-2. <pre><code>k apply -f deployment.yaml -f service.yaml</code></pre>
+2. <pre><code>k apply -f webapp.yaml -f webapp-config.yaml -f postgres-workload.yaml -f postgres-storage.yaml_</code></pre>
 * Check whether pods and services were correctly deployed. Use these commands:
 
    * <pre><code>k get pods</code></pre>
@@ -59,7 +59,7 @@ Use command:
 **<pre><code>terraform apply</code></pre>**
 **<pre><code>terraform destroy</code></pre>**
 Please, refer to documentation: <br /> <br />
-
+https://learn.hashicorp.com/collections/terraform/aws-get-started
 
 # Ansible
 ***
@@ -71,6 +71,9 @@ IPv4 of your AWS instance
 [dev:vars]
 ansible_user=ec2-user
 ansible_ssh_private_key_file=/mnt/Code/FastApi/app.pem 
+
+Use command in /ansible directory:
+**<pre><code>ansible-playbook playbook.yaml</code></pre>**
 
 
 Please, note that if you're using Ubuntu image, you need change in hosts file the following<pre><code>ansible_user=ubuntu</code></pre>
