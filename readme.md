@@ -24,6 +24,8 @@ It's possible to use another ports to access this web application: <code>8080</c
 Please, notice that for all commands below 'alias' was used as follows:
 **<pre><code>alias k="kubectl"</code></pre>**
 
+Please note, that before deploying this app, you could have delete minikube container: <pre><code>minikube delete</code></pre>
+
 Steps to deploy:
 1. <pre><code>minikube start --driver=docker</code></pre> or you can change driver to VirtualBox, Podman, Hyper-V. Please refer to: https://minikube.sigs.k8s.io/docs/drivers/ for more details
 2. <pre><code>k apply -f deployment.yaml -f service.yaml</code></pre>
