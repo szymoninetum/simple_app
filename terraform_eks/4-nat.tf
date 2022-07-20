@@ -1,14 +1,14 @@
 resource "aws_eip" "nat" {
-    vpc = true
+  vpc = true
 
-    tags = {
-        Name = "nat"
-    }
+  tags = {
+    Name = "nat"
+  }
 }
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id = aws_subnet.public-us-east-1a.id
+  subnet_id     = aws_subnet.public-us-east-1a.id
 
   tags = {
     Name = "nat"

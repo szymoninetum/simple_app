@@ -20,3 +20,7 @@ testkey.pub
 tf-cloud-init
 terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/4.20.1/linux_amd64/terraform-provider-aws_v4.20.1_x5
 terraform/.terraform/providers/registry.terraform.io/hashicorp/template/2.2.0/linux_amd64/terraform-provider-template_v2.2.0_x4
+terraform_eks/terraform.tfstate
+terraform_eks/terraform.tfstate.backup
+terraform_eks/.terraform/providers/registry.terraform.io/hashicorp/aws/3.75.2/linux_amd64/terraform-provider-aws_v3.75.2_x5
+terraform_eks/.terraform/providers/registry.terraform.io/hashicorp/tls/3.4.0/linux_amd64/terraform-provider-tls_v3.4.0_x5
