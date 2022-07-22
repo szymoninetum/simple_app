@@ -142,6 +142,11 @@
         - docker-compose.yml
         state: present
       become: true
+
+
+#K8s
+
+
       # vars:
       #   ansible_python_interpreter: /bin/python3
 
