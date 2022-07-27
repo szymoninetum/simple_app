@@ -53,6 +53,14 @@ as below: <br />
 
 <br />
 
+5. In case commands with <code>minikube service [NAME_SERVICE]</code> does not work, please use following: 
+**<pre><code>kubectl port-forward pod/webapp-deployment-68954477dd-bwbw7 12345:8000</code></pre>**
+and run web application on local webbrowser (where you have VS Code):
+   <pre><code>localhost:12345</code></pre>
+   Please, note that you can check and test your pod using command:
+   **<pre><code>k exec -it [name_Pod] -- sh</code></pre>**
+   And then you can acces your pod by 'curl' and check ports which are used by <code>netstat -lntp</code>
+
 # Terraform
 ***
 Use command:
@@ -77,8 +85,31 @@ ansible_ssh_private_key_file=/mnt/Code/FastApi/app.pem
 Use command in /ansible directory:
 **<pre><code>ansible-playbook playbook.yaml</code></pre>**
 
-
 Please, note that if you're using Ubuntu image, you need change in hosts file the following<pre><code>ansible_user=ubuntu</code></pre>
+
+# EKS in AWS
+***
+Use this command to make infrastracture for the cluster in AWS:
+<pre><code>cd k8s_eks</code></pre>
+<pre><code>terraform init</code></pre>
+<pre><code>terraform apply</code></pre>
+
+***
+Instal kubectx with following command:
+*<pre><code>sudo snap install kubectx --classic</code></pre>*
+
+And switch to aws cluster environment with this command (you can check your cluster environments simply by using this command **<code>kubectx</code>**
+**<pre>kubectx [your cluster environment]</pre>**
+
+Apply port-forwarding for your pod:
+**<pre><code>kubectl port-forward pod/webapp-deployment-68954477dd-bwbw7 12345:8000</code></pre>**
+
+You can use any different port (instead of 12345)
+
+Test your webapp in local webbrowser with this address:
+<pre><code>localhost:12345</code></pre>
+
+Use a web browser that is on the same system you are working on
 
 ### Docker & Docker Compose documentation <br />
 https://docs.docker.com/compose/ <br />
