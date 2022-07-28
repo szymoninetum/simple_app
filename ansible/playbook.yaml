@@ -84,30 +84,6 @@
         state: latest
         update_cache: true
 
-    # - name: Install Docker Module for Python
-    #   pip:
-    #     name: docker
-
-    # - name: usermod
-    #   ansible.builtin.shell: sudo usermod -a -G docker ec2-user
-    #   become: true
-    #  - name: build
-    #    ansible.builtin.shell: Docker version 17.09.1-ce, build
-    #    become: true
-    # - name: Docker-compose install
-    #   ansible.builtin.shell: curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-    #   become: true
-    #  - name: install python docker packages
-    #    pip:
-    #     name:
-    #      - docker
-    #      - docker-compose
-    #     executable: pip3
-
-    # - name: chmod
-    #   ansible.builtin.shell: chmod +x /usr/local/bin/docker-compose
-    #   become: true
-
     #Docker-compose installation
     - name: install compose
       become: true
@@ -116,14 +92,6 @@
 
     - name: Build image
       shell: echo "PATH=$PATH:/tmp/app" > docker build -t szymanel/app .
-
-    # - name: copy docker-compose.yml
-    #   copy:
-    #     src: ansible_app/
-    #     dest: /tmp/app
-    #     remote_src: yes
-    #   loop:
-    #   - docker-compose.yaml
 
     - name: deploy Docker Compose down
       docker_compose:

@@ -59,7 +59,7 @@ and run web application on local webbrowser (where you have VS Code):
    <pre><code>localhost:12345</code></pre>
    Please, note that you can check and test your pod using command:
    **<pre><code>k exec -it [name_Pod] -- sh</code></pre>**
-   And then you can acces your pod by 'curl' and check ports which are used by <code>netstat -lntp</code>
+   And then you can acces your pod by 'curl' and check ports which are used by <code>netstat -lntp</code> It is helpful in case you struggle to run application to check whether the error is due to ports or any other bugs.
 
 # Terraform
 ***
