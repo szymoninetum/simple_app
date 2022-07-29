@@ -38,7 +38,7 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DATABASE=fastapi_database
     ports:
-      - 8000:8000 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - 8000:8000 # Forward the exposed port 8000 on the container to port 8000 on the host machine
     links:
       - app-postgres
     networks:
@@ -91,6 +91,8 @@ volumes:
 networks:
     app.net:
     app.nginx:
+
+
 
 #----------------------------------------------------------
 # Other solutions for NGINX (do not work)
