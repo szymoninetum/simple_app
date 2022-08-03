@@ -37,18 +37,3 @@ spec:
       #    - name: postgredb
       #      persistentVolumeClaim:
       #       claimName: postgres-pv-claim
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: webapp-service
-spec:
-  ports:
-    - name: webapp
-      protocol: TCP
-      port: 8000
-      targetPort: 8000
-      nodePort: 30080  
-  type: NodePort
-  selector:
-    app: app
