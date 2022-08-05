@@ -55,7 +55,7 @@ as below: <br />
 
 5. In case commands with <code>minikube service [NAME_SERVICE]</code> does not work, please use following: 
 **<pre><code>kubectl port-forward pod/webapp-deployment-68954477dd-bwbw7 12345:8000</code></pre>**
-and run web application on local webbrowser (where you have VS Code):
+and run web application on local webbrowser (where you have Code Environment):
    <pre><code>localhost:12345</code></pre>
    Please, note that you can check and test your pod using command:
    **<pre><code>k exec -it [name_Pod] -- sh</code></pre>**
