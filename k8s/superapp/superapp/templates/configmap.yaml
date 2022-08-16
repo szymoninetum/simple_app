@@ -5,11 +5,15 @@ metadata:
   labels:
     app: {{ template "superapp.fullname" . }}
 data:
-  POSTGRES_DATABASE: fastapi_database
-  POSTGRES_USER: app
-  POSTGRES_PASSWORD: app
+  POSTGRES_DATABASE: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: HkX3meoaOy
   POSTGRES_PORT: "5432"
-  POSTGRES_SERVER: 'postgres'
+  POSTGRES_SERVER: my-release-postgresql
+
+
+# POSTGRES_HOST_AUTH_METHOD: trust
+# POSTGRES_HOST: localhost
 
 # apiVersion: v1
 # kind: ConfigMap
