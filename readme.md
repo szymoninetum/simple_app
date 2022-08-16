@@ -113,6 +113,23 @@ Use a web browser that is on the same system you are working on.
 
 # HELM
 ***
+Go to superapp directory [**/k8s/superapp**]:
+<pre><code>helm install k8stohelmchart superapp</code></pre>
+<pre><code>kubectl port-forward pod/[POD NAME] 12345:8000</code></pre>
+
+In the web browser, enter:
+
+<pre><code>localhost:12345/docs</code></pre>
+
+Please note that in order to get 'postgres_password' in the configmap, please do the following:
+
+<pre><code>kubectl get secret</code></pre>
+<pre><code>k get secret [NAME OF POSTGRES RELEASE: my-release-postgresql] -o yaml</code></pre>
+
+Decode your postgres-password using this website: https://www.base64decode.org/ and put decoded value in your configmap.yaml to POSTGRES_PASSWORD.
+
+
+<br /><br />
 
 ### Docker & Docker Compose documentation <br />
 https://docs.docker.com/compose/ <br />
@@ -136,6 +153,9 @@ Here are some most common bugs/issues with potential fixes:
 
 ### #Docker# "Port is already allocated" error
 * https://simplernerd.com/docker-port-allocated/
+
+### Convert #Kubernetes# deployment YAML into #Helm# Chart YAML
+* https://jhooq.com/convert-kubernetes-yaml-into-helm/
 
 ## Recommended tutorials and videos:
 * https://www.youtube.com/watch?time_continue=1&v=d6WC5n9G_sM&feature=emb_logo
